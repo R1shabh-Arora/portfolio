@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch: # allow manual runs from the Actions UI
 
 permissions:
   contents: read
@@ -17,13 +18,34 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js (with npm cache and public registry)
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
+          registry-url: "https://registry.npmjs.org/"
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Ensure public npm registry (extra safety)
+        run: |
+          echo "Setting npm registry to public npmjs.org"
+          npm config set registry https://registry.npmjs.org/
+          npm config get registry
+
+      - name: Install dependencies (with retries for transient DNS/network errors)
+        run: |
+          set -e
+          max_retries=3
+          attempt=0
+          until npm ci; do
+            attempt=$((attempt + 1))
+            echo "npm ci failed (attempt $attempt/$max_retries)."
+            if [ "$attempt" -ge "$max_retries" ]; then
+              echo "Reached max retries. Exiting with failure."
+              exit 1
+            fi
+            echo "Waiting 5s before retrying..."
+            sleep 5
+          done
 
       - name: Build
         run: npm run build
