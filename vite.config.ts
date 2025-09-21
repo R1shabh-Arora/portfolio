@@ -1,18 +1,25 @@
-import path from "path";
+﻿import path from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { tempo } from "tempo-devtools/dist/vite";
 
-// https://vitejs.dev/config/
+/**
+ * Vite config tuned for GitHub Pages deployment.
+ *
+ * Behavior:
+ * - In development (`NODE_ENV === 'development'`) base is '/'
+ * - In other envs, prefer VITE_BASE_PATH (if provided), otherwise default to '/portfolio/'
+ *   -> update '/portfolio/' to your repo name if it's different.
+ */
 export default defineConfig({
-  base: process.env.NODE_ENV === "development" ? "/" : process.env.VITE_BASE_PATH || "/",
+  base:
+    process.env.NODE_ENV === "development"
+      ? "/"
+      : process.env.VITE_BASE_PATH || "/portfolio/",
   optimizeDeps: {
     entries: ["src/main.tsx", "src/tempobook/**/*"],
   },
-  plugins: [
-    react(),
-    tempo(),
-  ],
+  plugins: [react(), tempo()],
   resolve: {
     preserveSymlinks: true,
     alias: {
@@ -20,7 +27,8 @@ export default defineConfig({
     },
   },
   server: {
+    // allow access from other hosts during local dev (keeps your prior behavior)
     // @ts-ignore
     allowedHosts: true,
-  }
+  },
 });
