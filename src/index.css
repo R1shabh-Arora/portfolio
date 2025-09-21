@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -------------------------
+   color + theme variables
+   ------------------------- */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+/* keep the existing border-color application (only sets border-color util) */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* -------------------------
+   small global tweaks
+   ------------------------- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/* responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* -------------------------
+   simple container + sections
+   ------------------------- */
+@layer components {
+  .container {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .section {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  /* hero spacing convenience */
+  .hero {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    padding-top: 6rem; /* for fixed header */
+    padding-bottom: 2rem;
+  }
+
+  /* card — uses card color variables for light/dark */
+  .card {
+    background: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border-radius: var(--radius);
+    padding: 1rem;
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+  }
+
+  /* small, reusable button styles */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform .08s ease, box-shadow .12s ease;
+    user-select: none;
+  }
+
+  .btn:active { transform: translateY(1px); }
+
+  .btn-primary {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border: 1px solid transparent;
+  }
+  .btn-primary:hover { opacity: 0.95; }
+
+  .btn-outline {
+    background: transparent;
+    color: hsl(var(--primary));
+    border: 1px solid hsl(var(--border));
+  }
+
+  .link {
+    color: hsl(var(--primary));
+    text-decoration: underline;
+  }
+
+  /* header helper if you want to assign a class */
+  .site-header {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in srgb, hsl(var(--background)) 70%, rgba(255,255,255,0.6) 30%);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  /* small utility for section headings */
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-sub {
+    color: hsl(var(--muted-foreground));
+    margin-bottom: 1rem;
+  }
+
+  /* subtle focus ring for keyboard users */
+  .focus-ring:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(59,130,246,0.12);
+    border-radius: 6px;
+  }
+}
+
+/* -------------------------
+   responsive & small tweaks
+   ------------------------- */
+@layer utilities {
+  .text-muted {
+    color: hsl(var(--muted-foreground));
+  }
+  .card-grid {
+    display: grid;
+    gap: 1rem;
+  }
+  @media (min-width: 768px) {
+    .card-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}
+
+/* Print friendliness for CV link / resume */
+@media print {
+  .site-header, .btn, .link { display: none !important; }
+  body { background: #fff; color: #000; }
+}
