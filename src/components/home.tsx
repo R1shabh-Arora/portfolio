@@ -67,16 +67,16 @@ const Home: React.FC = () => {
       <AnimatedSection
         id="projects"
         className="py-20 px-4 md:px-8 lg:px-16"
-        heading={
-          <FadeIn direction="left" distance={40} delay={0.04} once={false}>
-            <h2
-              className="text-2xl md:text-3xl font-mono text-red-600 mb-12 glitch-text"
-              id="projects-heading"
-            >
-              <span className="relative">Security_Projects_</span>
-            </h2>
-          </FadeIn>
-        }
+        // heading={
+        //   <FadeIn direction="left" distance={40} delay={0.04} once={false}>
+        //     <h2
+        //       className="text-2xl md:text-3xl font-mono text-red-600 mb-12 glitch-text"
+        //       id="projects-heading"
+        //     >
+        //       <span className="relative">Security_Projects_</span>
+        //     </h2>
+        //   </FadeIn>
+        // }
         headingId="projects-heading"
         // replayOnView={true}
         // replayOnHover={true}
@@ -92,7 +92,7 @@ const Home: React.FC = () => {
                   description: "Tamper-resistant CCTV prototype for treaty verification.",
                   longDescription:
                     "Developed in collaboration with AWE as part of my final year group project. I conducted the full threat analysis, identifying vulnerabilities such as replay attacks, insider threats, and side-channel risks, and proposed mitigations including timestamped handshakes, secure key storage, and tamper-proof enclosures. I designed and 3D-printed a tamper-proof case in Autodesk Fusion 360, assisted the hardware team with integration, and contributed a personal Raspberry Pi 3 for prototyping. I also authored key sections of the threat analysis and final reports presented to AWE. The deployed prototype featured two live camera nodes and secure data transmission with TLS and digital signatures, resilient against denial-of-service and insider attacks.",
-                  image: "/CCTV.jpeg",
+                  image: "./CCTV.jpeg",
                   images: [
                     "https://images.unsplash.com/photo-1592998384032-2dbd0ed4921f?w=1200&q=80",
                     "https://images.unsplash.com/photo-1581091870633-1f59c66c5b02?w=1200&q=80",
