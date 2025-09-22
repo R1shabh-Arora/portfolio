@@ -32,7 +32,7 @@ export default function FadeIn({
   direction = "up",
   distance = 50,
   delay = 2,
-  duration = 4,
+  duration = 3,
   className = "",
   once = false, // <<-- default now re-animates on every entry
   ...rest

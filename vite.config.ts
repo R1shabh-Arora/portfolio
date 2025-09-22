@@ -6,29 +6,32 @@ import { tempo } from "tempo-devtools/dist/vite";
 /**
  * Vite config tuned for GitHub Pages deployment.
  *
- * Behavior:
- * - In development (`NODE_ENV === 'development'`) base is '/'
- * - In other envs, prefer VITE_BASE_PATH (if provided), otherwise default to '/portfolio/'
- *   -> update '/portfolio/' to your repo name if it's different.
+ * - dev: base = '/'
+ * - prod: base = process.env.VITE_BASE_PATH || '/portfolio/'
+ * Update '/portfolio/' to your repo name if needed.
  */
-export default defineConfig({
-  base:
-    process.env.NODE_ENV === "development"
-      ? "/"
-      : process.env.VITE_BASE_PATH || "/portfolio/",
-  optimizeDeps: {
-    entries: ["src/main.tsx", "src/tempobook/**/*"],
-  },
-  plugins: [react(), tempo()],
-  resolve: {
-    preserveSymlinks: true,
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+export default defineConfig(({ mode }) => {
+  const isDev = mode === "development" || process.env.NODE_ENV === "development";
+
+  return {
+    base: isDev ? "/" : process.env.VITE_BASE_PATH || "/portfolio/",
+    optimizeDeps: {
+      entries: ["src/main.tsx", "src/tempobook/**/*"],
     },
-  },
-  server: {
-    // allow access from other hosts during local dev (keeps your prior behavior)
-    // @ts-ignore
-    allowedHosts: true,
-  },
+    plugins: [
+      react(),
+      // Only enable tempo devtools in development to keep production builds clean
+      ...(isDev ? [tempo()] : []),
+    ],
+    resolve: {
+      preserveSymlinks: true,
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+      },
+    },
+    server: {
+      // Make the dev server accessible from the network (useful for testing on mobile).
+      host: true,
+    },
+  };
 });
