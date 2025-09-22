@@ -6,8 +6,9 @@ on:
       - main
   workflow_dispatch:
 
+# Allow Actions to push and write Pages content
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -15,8 +16,10 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout repository (full history)
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js (with npm cache and public registry)
         uses: actions/setup-node@v4
@@ -37,30 +40,23 @@ jobs:
         run: |
           echo "Setting npm registry to public npmjs.org"
           npm config set registry https://registry.npmjs.org/
-          # also set env var which some tools read
           echo "NPM_CONFIG_REGISTRY=https://registry.npmjs.org/" >> $GITHUB_ENV
           npm config get registry
 
       - name: Replace Verdaccio host in package-lock.json (CI-only, non-destructive)
         run: |
-          # If package-lock.json contains internal Verdaccio tarball URLs, replace the host part
-          # Make a backup copy just in case
           if [ -f package-lock.json ]; then
             cp package-lock.json package-lock.json.ci-backup
-            echo "Scanning package-lock.json for verdaccio host..."
             if grep -q "verdaccio.verdaccio.svc.cluster.local" package-lock.json; then
-              echo "Found verdaccio references — replacing host with registry.npmjs.org for CI install only."
-              # Replace the host and port occurrences with registry.npmjs.org (https).
-              # This replacement modifies only the CI copy (not committed).
-              # Use perl to do a safe, whole-file replacement (handles multiline).
+              echo "Replacing verdaccio host occurrences with registry.npmjs.org for CI install only."
               perl -0777 -pe 's{https?://verdaccio\.verdaccio\.svc\.cluster\.local:4873}{https://registry.npmjs.org}g' -i package-lock.json
               echo "Replacement done. Showing a sample of replaced lines:"
               grep -n "registry.npmjs.org" package-lock.json | head -n 5 || true
             else
-              echo "No verdaccio host found in package-lock.json; nothing to replace."
+              echo "No Verdaccio references found in package-lock.json."
             fi
           else
-            echo "No package-lock.json found."
+            echo "No package-lock.json found; skipping replacement."
           fi
 
       - name: Configure npm fetch retries & timeouts
@@ -69,12 +65,9 @@ jobs:
           npm config set fetch-retry-factor 2
           npm config set fetch-retry-mintimeout 20000
           npm config set fetch-retry-maxtimeout 120000
-          npm config get fetch-retries
-          npm config get fetch-retry-mintimeout
 
-      - name: Install dependencies (with retries for transient DNS/network errors)
+      - name: Install dependencies (reliable, with retries)
         env:
-          # double ensure registry env is present for child processes
           NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
         run: |
           set -e
@@ -84,12 +77,12 @@ jobs:
             attempt=$((attempt + 1))
             echo "npm ci failed (attempt $attempt/$max_retries)."
             if [ "$attempt" -ge "$max_retries" ]; then
-              echo "Reached max retries. Dumping some diagnostics and exiting with failure."
+              echo "Reached max retries. Dumping diagnostics and exiting with failure."
               echo "====== Diagnostics ======"
-              echo "npm registry:"
-              npm config get registry
-              echo
-              echo "Sample package-lock entries (top 50 lines):"
+              echo "npm registry: $(npm config get registry)"
+              echo "Top of package.json:"
+              head -n 50 package.json || true
+              echo "Top of package-lock.json:"
               head -n 50 package-lock.json || true
               echo "====== End diagnostics ======"
               exit 1
@@ -101,8 +94,14 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Configure git user for deploy commits
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Use GH_PAGES_PAT secret if present; otherwise fall back to the default token
+          github_token: ${{ secrets.GH_PAGES_PAT || secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
