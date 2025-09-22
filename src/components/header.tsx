@@ -20,19 +20,28 @@ export default function Header() {
     return "home";
   });
 
-  // store last observed time to prefer most-visible section
+  // mobile menu open state
+  const [open, setOpen] = useState(false);
+
+  // store last observed visibility ratios
   const visibilityRef = useRef<Record<string, number>>({});
 
+  // ref for mobile menu and open button (for outside click & focus)
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  const btnRef = useRef<HTMLButtonElement | null>(null);
+
   useEffect(() => {
-    // IntersectionObserver to watch sections
     if (typeof window === "undefined") return;
 
     // Build list of elements to observe (only those that exist)
-    const observedEls: Element[] = NAV.map((n) => document.getElementById(n.id)).filter(Boolean) as Element[];
+    const observedEls: Element[] = NAV.map((n) =>
+      document.getElementById(n.id),
+    ).filter(Boolean) as Element[];
 
     if (observedEls.length === 0) {
       // fallback: listen to hashchange only
-      const onHash = () => setActive(window.location.hash.replace("#", "") || "home");
+      const onHash = () =>
+        setActive(window.location.hash.replace("#", "") || "home");
       window.addEventListener("hashchange", onHash);
       return () => window.removeEventListener("hashchange", onHash);
     }
@@ -44,38 +53,43 @@ export default function Header() {
       threshold: Array.from({ length: 21 }, (_, i) => i / 20), // many thresholds for accurate ratio
     };
 
-    const observer = new IntersectionObserver((entries) => {
-      // update visibilityRef with intersection ratios and timestamps
-      entries.forEach((entry) => {
-        const id = entry.target.id;
-        if (entry.isIntersecting && entry.intersectionRatio > 0) {
-          visibilityRef.current[id] = entry.intersectionRatio;
-        } else {
-          // set to 0 if not intersecting
-          visibilityRef.current[id] = 0;
-        }
-      });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // update visibilityRef with intersection ratios
+        entries.forEach((entry) => {
+          const id = entry.target.id;
+          if (entry.isIntersecting && entry.intersectionRatio > 0) {
+            visibilityRef.current[id] = entry.intersectionRatio;
+          } else {
+            visibilityRef.current[id] = 0;
+          }
+        });
 
-      // choose section with largest ratio
-      let bestId = active;
-      let bestRatio = 0;
-      for (const key of Object.keys(visibilityRef.current)) {
-        const r = visibilityRef.current[key] ?? 0;
-        if (r > bestRatio) {
-          bestRatio = r;
-          bestId = key;
+        // choose section with largest ratio
+        let bestId = active;
+        let bestRatio = 0;
+        for (const key of Object.keys(visibilityRef.current)) {
+          const r = visibilityRef.current[key] ?? 0;
+          if (r > bestRatio) {
+            bestRatio = r;
+            bestId = key;
+          }
         }
-      }
 
-      if (bestId && bestId !== active) {
-        setActive(bestId);
-        // don't push browser history excessively; use replaceState to keep hash in sync optionally
-        if (window && window.history && window.location.hash.replace("#", "") !== bestId) {
+        if (bestId && bestId !== active) {
+          setActive(bestId);
           // update hash without scrolling
-          window.history.replaceState(null, "", `#${bestId}`);
+          if (
+            window &&
+            window.history &&
+            window.location.hash.replace("#", "") !== bestId
+          ) {
+            window.history.replaceState(null, "", `#${bestId}`);
+          }
         }
-      }
-    }, observerOptions);
+      },
+      observerOptions,
+    );
 
     // initialize visibilityRef and observe
     observedEls.forEach((el) => {
@@ -84,14 +98,51 @@ export default function Header() {
     });
 
     // also fallback to hashchange for direct links
-    const onHash = () => setActive(window.location.hash.replace("#", "") || "home");
+    const onHash = () =>
+      setActive(window.location.hash.replace("#", "") || "home");
     window.addEventListener("hashchange", onHash);
 
     return () => {
       observer.disconnect();
       window.removeEventListener("hashchange", onHash);
     };
-  }, [active]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // run once
+
+  // close menu on Escape and close when clicking outside
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+
+    const onClickOutside = (e: MouseEvent) => {
+      if (!open) return;
+      const target = e.target as Node | null;
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(target) &&
+        btnRef.current &&
+        !btnRef.current.contains(target)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onClickOutside);
+
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onClickOutside);
+    };
+  }, [open]);
+
+  // ensure menu closes when navigating via hash links (useful for mobile)
+  useEffect(() => {
+    const onNav = () => setOpen(false);
+    window.addEventListener("hashchange", onNav);
+    return () => window.removeEventListener("hashchange", onNav);
+  }, []);
 
   return (
     <>
@@ -108,7 +159,7 @@ export default function Header() {
         role="banner"
         aria-label="Primary"
       >
-        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-14">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 flex items-center justify-between h-14">
           {/* Branding - clickable to top */}
           <div className="flex flex-col">
             <a
@@ -134,7 +185,7 @@ export default function Header() {
                 <a
                   key={item.id}
                   href={`#${item.id}`}
-                  className={`px-3 py-1 rounded transition ${
+                  className={`px-3 py-1 rounded transition focus:outline-none focus:ring-2 focus:ring-red-500 ${
                     isActive
                       ? "bg-red-600/20 text-red-400 border border-red-600/40"
                       : "text-gray-300 hover:text-white hover:underline"
@@ -147,24 +198,80 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Mobile nav */}
+          {/* Mobile nav (hamburger) */}
           <div className="md:hidden">
-            <details className="relative">
-              <summary className="cursor-pointer px-3 py-1 border border-gray-700 rounded text-white bg-black/70">
-                Menu
-              </summary>
-              <div className="absolute right-0 mt-2 bg-black/95 border border-gray-700 rounded shadow p-3 w-48 z-50">
-                {NAV.map((item) => (
-                  <a
-                    key={item.id}
-                    href={`#${item.id}`}
-                    className="block px-3 py-2 rounded hover:bg-white/10 text-gray-200"
-                  >
-                    {item.label}
-                  </a>
-                ))}
+            <button
+              ref={btnRef}
+              aria-controls="mobile-menu"
+              aria-expanded={open}
+              aria-label={open ? "Close menu" : "Open menu"}
+              onClick={() => setOpen((s) => !s)}
+              className="inline-flex items-center justify-center p-2 rounded-md border border-gray-700 bg-black/70 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+            >
+              <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+              {/* Icon: simple hamburger / X */}
+              {open ? (
+                <svg
+                  className="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              )}
+            </button>
+
+            {/* Mobile panel */}
+            <div
+              ref={menuRef}
+              id="mobile-menu"
+              className={`absolute right-4 top-14 mt-2 w-56 z-50 transform origin-top-right transition-all duration-200 shadow-lg rounded-md overflow-hidden ${
+                open ? "scale-100 opacity-100" : "scale-95 opacity-0 pointer-events-none"
+              }`}
+            >
+              <div className="bg-black/95 border border-gray-700 rounded-md p-2">
+                {NAV.map((item) => {
+                  const isActive = active === item.id;
+                  return (
+                    <a
+                      key={item.id}
+                      href={`#${item.id}`}
+                      onClick={() => setOpen(false)}
+                      className={`block px-3 py-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-red-500 ${
+                        isActive ? "bg-red-600/20 text-red-400" : "text-gray-200 hover:bg-white/5"
+                      }`}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  );
+                })}
               </div>
-            </details>
+            </div>
           </div>
         </div>
       </header>

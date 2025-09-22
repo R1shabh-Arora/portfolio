@@ -211,7 +211,7 @@ const HeroSection = ({
         </motion.div>
       </motion.div>
 
-      {/* CSS for animations */}
+      {/* CSS for animations + responsive overrides (mobile-first) */}
       <style>{`
         @keyframes fallDown {
           0% {
@@ -235,6 +235,103 @@ const HeroSection = ({
           );
           background-size: 100% 4px;
         }
+
+        /* --- Responsive overrides for mobile devices --- */
+
+        /* Make the big title scale nicely on any screen */
+        #home h1 {
+          font-size: clamp(1.8rem, 8vw, 3.75rem) !important;
+          line-height: 1.05 !important;
+          word-break: break-word;
+        }
+
+        /* Allow inline name + typewriter to wrap on small screens */
+        #home h1 .whitespace-nowrap {
+          white-space: normal !important;
+          display: inline !important;
+        }
+
+        /* Ensure inline-block Typewriter doesn't force overflow */
+        #home h1 .inline-block {
+          display: inline !important;
+        }
+
+        /* Subtitle and paragraph scaling */
+        #home p {
+          font-size: clamp(0.9rem, 3.5vw, 1.125rem) !important;
+          margin-bottom: 1.25rem !important;
+          padding-left: 0.5rem;
+          padding-right: 0.5rem;
+          max-width: 95%;
+        }
+
+        /* Terminal box sizing on small screens */
+        @media (max-width: 640px) {
+          #home .max-w-lg {
+            max-width: 95% !important;
+            padding: 0.75rem !important;
+          }
+          #home .min-h-\\[100px\\] {
+            min-height: 80px !important;
+          }
+          #home .p-6 { padding: 0.75rem !important; }
+        }
+
+        /* Avoid horizontal scroll from absolute children — keep inside viewport */
+        #home > *[class*="absolute"] {
+          max-width: 100%;
+          left: 0;
+          right: 0;
+        }
+
+        /* Tone down background portrait and scanlines on small screens */
+        @media (max-width: 768px) {
+          #home .bg-cover {
+            opacity: 0.06 !important;
+            filter: none !important;
+          }
+          #home .bg-scanline {
+            opacity: 0.04 !important;
+            background-size: 100% 6px !important;
+          }
+        }
+
+        /* Hide falling code animation on small screens to save CPU and avoid overflow */
+        @media (max-width: 768px) {
+          [style*="fallDown"] {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+          }
+        }
+
+        /* Glitch shadow layers: avoid big absolute overflow on phones */
+        @media (max-width: 640px) {
+          #home h1 > span > span.absolute {
+            display: none !important;
+          }
+        }
+
+        /* Reduce spacing and margins for mobile */
+        @media (max-width: 640px) {
+          #home { padding-left: 12px !important; padding-right: 12px !important; }
+          #home .mb-12 { margin-bottom: 1.25rem !important; }
+          #home .mb-6  { margin-bottom: 0.75rem !important; }
+        }
+
+        /* Make the terminal "cursor" smaller on small screens */
+        @media (max-width: 640px) {
+          #home .inline-block.w-2.h-4 { width: 10px !important; height: 16px !important; }
+        }
+
+        /* Respect prefers-reduced-motion */
+        @media (prefers-reduced-motion: reduce) {
+          * { animation: none !important; transition: none !important; }
+        }
+
+        /* Prevent side-scroll caused by any long monospaced strings */
+        #home .font-mono { word-break: break-word; overflow-wrap: anywhere; -webkit-font-smoothing: antialiased; }
+
       `}</style>
     </div>
   );

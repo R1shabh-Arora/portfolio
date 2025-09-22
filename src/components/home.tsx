@@ -1,4 +1,3 @@
-// src/components/home.tsx
 import React from "react";
 import { motion } from "framer-motion";
 import HeroSection from "./HeroSection";
@@ -67,20 +66,17 @@ const Home: React.FC = () => {
       <AnimatedSection
         id="projects"
         className="py-20 px-4 md:px-8 lg:px-16"
-        // heading={
-        //   <FadeIn direction="left" distance={40} delay={0.04} once={false}>
-        //     <h2
-        //       className="text-2xl md:text-3xl font-mono text-red-600 mb-12 glitch-text"
-        //       id="projects-heading"
-        //     >
-        //       <span className="relative">Security_Projects_</span>
-        //     </h2>
-        //   </FadeIn>
-        // }
-        headingId="projects-heading"
-        // replayOnView={true}
-        // replayOnHover={true}
-        // fadeOutOnScroll={true}
+        heading={
+          <FadeIn direction="left" distance={40} delay={0.04} once={false}>
+            <h2
+              className="text-2xl md:text-3xl font-mono text-red-600 mb-12 glitch-text"
+              id="projects-heading"
+            >
+              <span className="relative">Projects_</span>
+            </h2>
+          </FadeIn>
+        }
+        headingId="Projects"
       >
         <div className="max-w-7xl mx-auto">
           <FadeIn direction="up" distance={28} delay={0.06} once={false}>
@@ -209,7 +205,7 @@ const Home: React.FC = () => {
                   title: "RobTheBank",
                   description: "Coursework penetration test applying OWASP Top 10 methodologies to identify security weaknesses.",
                   longDescription:
-                    "Conducted an authorised security assessment of a deliberately vulnerable training application as part of a university coursework exercise. The engagement followed OWASP Top 10 techniques to discover and verify a broad range of issues including input validation failures, insecure file handling, improper access controls and information disclosure. For each class of issue I documented the affected area, evidence of impact, and recommended mitigations (eg. input sanitisation and prepared statements, secure file upload handling, robust access control checks, and proper error-handling). The assessment was performed responsibly in the course environment and used to produce targeted remediation advice and testing artefacts for the instructor and team.",
+                    "Conducted an authorised security assessment of a deliberately vulnerable training application as part of university coursework. The engagement followed OWASP Top 10 techniques to discover and verify a broad range of issues including input validation failures, insecure file handling, improper access controls and information disclosure. For each class of issue I documented the affected area, evidence of impact, and recommended mitigations (eg. input sanitisation and prepared statements, secure file upload handling, robust access control checks, and proper error-handling). The assessment was performed responsibly in the course environment and used to produce targeted remediation advice and testing artefacts for the instructor and team.",
                   image: "./RobTheBank.png",
                   tags: ["Web Security", "OWASP Top 10", "Penetration Testing", "Secure Coding", "Responsible Disclosure"],
                   role: "Security Assessor (Coursework)",
