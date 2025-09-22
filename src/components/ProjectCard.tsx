@@ -81,7 +81,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   return (
     <>
       <motion.div
-        className="relative w-full h-full"
+        className="relative w-full h-full mb-5"
         initial="initial"
         whileHover="hover"
         variants={glitchVariants}
