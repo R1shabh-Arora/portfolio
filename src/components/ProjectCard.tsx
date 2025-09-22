@@ -145,7 +145,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             </div>
 
             {/* Tags */}
-            <div className="flex flex-wrap gap-2 mt-auto">
+            <div className="flex flex-wrap gap-2 mt-4">
               {tags.map((tag, index) => (
                 <Badge
                   key={index}

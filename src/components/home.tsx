@@ -39,7 +39,7 @@ const Home: React.FC = () => {
       {/* Experience (timeline) */}
       <AnimatedSection
         id="experience"
-        className="py-20 px-4 md:px-8 lg:px-16 bg-black/90"
+        className="my-20 mx-4 md:mx-8 lg:mx-16 bg-black/90"
         heading={
           <FadeIn direction="left" distance={32} delay={0.02} once={false}>
             <h2
@@ -65,7 +65,7 @@ const Home: React.FC = () => {
       {/* Project Gallery Section */}
       <AnimatedSection
         id="projects"
-        className="py-20 px-4 md:px-8 lg:px-16"
+        className="my-1 mx-4 md:mx-8 lg:mx-16"
         heading={
           <FadeIn direction="left" distance={40} delay={0.04} once={false}>
             <h2
@@ -89,10 +89,6 @@ const Home: React.FC = () => {
                   longDescription:
                     "Developed in collaboration with AWE as part of my final year group project. I conducted the full threat analysis, identifying vulnerabilities such as replay attacks, insider threats, and side-channel risks, and proposed mitigations including timestamped handshakes, secure key storage, and tamper-proof enclosures. I designed and 3D-printed a tamper-proof case in Autodesk Fusion 360, assisted the hardware team with integration, and contributed a personal Raspberry Pi 3 for prototyping. I also authored key sections of the threat analysis and final reports presented to AWE. The deployed prototype featured two live camera nodes and secure data transmission with TLS and digital signatures, resilient against denial-of-service and insider attacks.",
                   image: "./CCTV.jpeg",
-                  images: [
-                    "https://images.unsplash.com/photo-1592998384032-2dbd0ed4921f?w=1200&q=80",
-                    "https://images.unsplash.com/photo-1581091870633-1f59c66c5b02?w=1200&q=80",
-                  ],
                   tags: [
                     "Threat Analysis",
                     "TLS",
@@ -119,7 +115,6 @@ const Home: React.FC = () => {
                   longDescription:
                     "This project explores machine-learning based intrusion detection for Mobile Ad-hoc Networks (MANETs). I created NS3 simulations modelling dynamic MANET topologies and greyhole (selective packet-drop) attacks, then mapped simulation outputs to a practical IDS workflow using the UNSW-NB15 dataset. I built data preprocessing pipelines (one-hot encoding, min-max scaling), trained/support-vector-machine classifiers (RBF kernel), and automated per-feature impact analysis to quantify the trade-off between model complexity and detection accuracy. Results highlight a compact feature subset that preserves detection performance while reducing computational cost — a key outcome for resource-constrained MANET deployments (e.g., emergency comms, battlefield networks). The work includes full methodology, scripts for feature extraction/automation, hyperparameter tuning, evaluation (precision/recall/F1), and reproducible report artifacts.",
                   image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1200&q=80",
-                  images: ["/assets/manet-sim-1.png", "/assets/manet-f1-chart.png"],
                   tags: ["NS3", "SVM", "C++", "Network Simulation", "Feature Engineering", "Python"],
                   role: "Network Simulation & Machine Learning",
                   date: "2024 - 2025",
@@ -261,7 +256,7 @@ const Home: React.FC = () => {
       {/* Toolbox / Skills Section */}
       <AnimatedSection
         id="skills"
-        className="py-20 px-4 md:px-8 lg:px-16 bg-black"
+        className="my-20 mx-4 md:mx-8 lg:mx-16 bg-black"
         headingId="skills-heading"
         // replayOnView={true}
         // replayOnHover={true}
@@ -277,7 +272,7 @@ const Home: React.FC = () => {
       {/* Education Section */}
       <AnimatedSection
         id="education"
-        className="py-20 px-4 md:px-8 lg:px-16 bg-black/90"
+        className="my-20 mx-4 md:mx-8 lg:mx-16 bg-black/90"
         heading={
           <FadeIn direction="left" distance={28} delay={0.04} once={false}>
             <h2 className="text-2xl md:text-3xl font-mono text-red-600 mb-12 glitch-text" id="education-heading">
@@ -300,7 +295,7 @@ const Home: React.FC = () => {
       {/* Strategy Section */}
       <AnimatedSection
         id="strategy"
-        className="py-20 px-4 md:px-8 lg:px-16 bg-black/90"
+        className="my-20 mx-4 md:mx-8 lg:mx-16 bg-black/90"
         heading={
           <FadeIn direction="left" distance={28} delay={0.04} once={false}>
             <h2 className="text-2xl md:text-3xl font-mono text-red-600 mb-6 glitch-text" id="strategy-heading">
@@ -348,7 +343,7 @@ const Home: React.FC = () => {
       {/* Contact Section */}
       <AnimatedSection
         id="contact"
-        className="py-20 px-4 md:px-8 lg:px-16"
+        className="my-20 mx-4 md:mx-8 lg:mx-16"
         heading={
           <FadeIn direction="left" distance={28} delay={0.04} once={false}>
             <h2 className="text-2xl md:text-3xl font-mono text-red-600 mb-12 glitch-text" id="contact-heading">
@@ -375,7 +370,7 @@ const Home: React.FC = () => {
 
       {/* Footer */}
       <FadeIn direction="up" distance={18} delay={0.04} once={false}>
-        <footer className="py-10 px-4 border-t border-red-600/30 relative overflow-hidden">
+        <footer className="my-10 mx-4 border-t border-red-600/30 relative overflow-hidden">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
             <motion.p
               className="font-mono text-red-600 text-sm mb-4 md:mb-0"

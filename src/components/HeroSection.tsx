@@ -128,7 +128,7 @@ const HeroSection = ({
               <span className="mr-4 whitespace-nowrap">Rishabh Arora –</span>
               <Typewriter
                 phrases={[
-                  "Cyber Security Enthusiast",
+                  "Cyber Enthusiast",
                   "Network Nerd",
                   "Workout Warrior",
                   "Big Thinker",
