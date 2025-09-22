@@ -80,11 +80,11 @@ const HeroSection = ({
       {/* Background portrait image */}
       <div
         className="absolute inset-0 bg-center bg-cover bg-no-repeat opacity-15 z-0"
-        style={{
-          backgroundImage:
-            "url('/ai-portrait.png')",
-          filter: "grayscale(100%) contrast(120%) brightness(70%)",
-        }}
+        // style={{
+        //   backgroundImage:
+        //     "url('/ai-portrait.png')",
+        //   filter: "grayscale(100%) contrast(120%) brightness(70%)",
+        // }}
       ></div>
 
       {/* Falling code animation */}
