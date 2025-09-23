@@ -103,7 +103,7 @@ const Home: React.FC = () => {
                   links: [
                     {
                       label: "Individual Report (PDF)",
-                      url: "/ELEC6200__Individual_Design_Report.pdf",
+                      url: "./ELEC6200__Individual_Design_Report.pdf",
                     },
                     { label: "Group Report (PDF)", url: "/GDP_Group_Report.pdf" },
                   ],
@@ -122,7 +122,7 @@ const Home: React.FC = () => {
                   links: [
                     {
                       label: "Read full report (PDF)",
-                      url: "/Final_Project_Report.pdf",
+                      url: "./Final_Project_Report.pdf",
                     },
                     {
                       label: "GitHub Repository",
@@ -141,7 +141,7 @@ const Home: React.FC = () => {
                   role: "Developer & Agile Team Member",
                   date: "2022 – 2023",
                   ownership: "Group",
-                  links: [{ label: "Project Report (PDF)", url: "/SEG_Handin_4.pdf" }],
+                  links: [{ label: "Project Report (PDF)", url: "./SEG_Handin_4.pdf" }],
                 },
                 {
                   id: "4",
@@ -206,7 +206,7 @@ const Home: React.FC = () => {
                   role: "Security Assessor (Coursework)",
                   date: "2023",
                   ownership: "Individual",
-                  links: [{ label: "Walk Through", url: "/RobTheBank.pdf" }],
+                  links: [{ label: "Walk Through", url: "./RobTheBank.pdf" }],
                 },
                 {
                   id: "9",
@@ -219,7 +219,7 @@ const Home: React.FC = () => {
                   role: "Forensic Analyst",
                   date: "2025",
                   ownership: "Individual",
-                  links: [{ label: "Report", url: "/COMP6254___Digital_Forensics___CW.pdf" }],
+                  links: [{ label: "Report", url: "./COMP6254___Digital_Forensics___CW.pdf" }],
                 },
                 {
                   id: "10",
@@ -232,7 +232,7 @@ const Home: React.FC = () => {
                   role: "Reverse Engineer",
                   date: "2025",
                   ownership: "Individual",
-                  links: [{ label: "Report", url: "/COMP6236-2425-Coursework-1.pdf" }],
+                  links: [{ label: "Report", url: "./COMP6236-2425-Coursework-1.pdf" }],
                 },
                 {
                   id: "11",
@@ -245,7 +245,7 @@ const Home: React.FC = () => {
                   role: "Malware Analyst",
                   date: "2025",
                   ownership: "Individual",
-                  links: [{ label: "Investigation Report", url: "/COMP6236___CW2.pdf" }],
+                  links: [{ label: "Investigation Report", url: "./COMP6236___CW2.pdf" }],
                 },
               ]}
             />
