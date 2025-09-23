@@ -29,7 +29,7 @@ const Home: React.FC = () => {
       <FadeIn direction="up" distance={28} delay={0} once={false}>
         <HeroSection
           title="Rishabh Arora – Cyber Security Enthusiast"
-          subtitle="The top one percent of the one percent, the ones in control, the ones who play God without permission, and now I'm gonna take them down."
+          subtitle="They don’t win. What this revealed is who they are: the top 1% of the 1%, the ones who play God without permission. I focus on exposing, securing, and holding malicious actors to account."
           introText={[
             " Hello friend,  I live with a hacker’s mindset,  question everything, act when others don’t, and keep pushing limits.",
           ]}

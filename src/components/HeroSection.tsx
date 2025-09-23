@@ -147,7 +147,7 @@ const HeroSection = ({
           variants={glitchVariants}
         >
           <span className="relative inline-block">
-            <span className="relative z-10 flex items-center">
+            <span className="relative z-10 inline-flex justify-center items-center">
               <span className="mr-4 whitespace-nowrap">Rishabh Arora –</span>
               <Typewriter
                 phrases={[
