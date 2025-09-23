@@ -27,7 +27,7 @@ export const sections: SkillsSection[] = [
     id: "sec-programming",
     emoji: "💻",
     title: "Programming",
-    items: ["Python", "C / C++", "Java", "Bash", "SQL", "JavaScript", "DSA"],
+    items: ["Python", "C / C++", "Java", "Bash", "SQL", "JavaScript", "Haskell", "DSA"],
   },
   {
     id: "sec-infra",

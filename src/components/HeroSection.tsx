@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Button } from "./ui/button";
-import { ArrowDownIcon } from "lucide-react";
+import { ArrowDownIcon, Download, ArrowRight } from "lucide-react";
 import Typewriter from "./Typewriter";
 
 interface HeroSectionProps {
@@ -69,6 +68,30 @@ const HeroSection = ({
     },
   };
 
+  // Scroll helper (used by Contact button)
+  const scrollToContactTerminal = () => {
+    const target =
+      document.getElementById("contact") ||
+      Array.from(document.querySelectorAll("section")).find((s) =>
+        /contact/i.test(s.textContent ?? ""),
+      ) ||
+      null;
+
+    if (target) {
+      (target as HTMLElement).scrollIntoView({ behavior: "smooth", block: "start" });
+      // give keyboard focus where possible
+      (target as HTMLElement).setAttribute("tabindex", "-1");
+      (target as HTMLElement).focus();
+    } else {
+      // fallback: set hash
+      try {
+        window.location.hash = "#contact";
+      } catch {
+        //
+      }
+    }
+  };
+
   return (
     <div
       id="home"
@@ -77,18 +100,18 @@ const HeroSection = ({
       {/* Scanline overlay */}
       <div className="absolute inset-0 pointer-events-none z-10 bg-scanline opacity-10"></div>
 
-      {/* Background portrait image */}
+      {/* Background portrait image (optional) */}
       <div
         className="absolute inset-0 bg-center bg-cover bg-no-repeat opacity-15 z-0"
         // style={{
-        //   backgroundImage:
-        //     "url('/ai-portrait.png')",
+        //   backgroundImage: "url('/ai-portrait.png')",
         //   filter: "grayscale(100%) contrast(120%) brightness(70%)",
         // }}
+        aria-hidden="true"
       ></div>
 
       {/* Falling code animation */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
         {Array.from({ length: 20 }).map((_, i) => (
           <div
             key={i}
@@ -150,8 +173,9 @@ const HeroSection = ({
                 opacity: [0, 1, 0],
               }}
               transition={{ duration: 0.2, repeat: Infinity, repeatDelay: 7 }}
+              aria-hidden="true"
             >
-              Rishabh Arora – Cyber Security Enthusiast
+              {title}
             </motion.span>
             <motion.span
               className="absolute top-0 left-0 text-red-700 z-0"
@@ -160,15 +184,16 @@ const HeroSection = ({
                 opacity: [0, 1, 0],
               }}
               transition={{ duration: 0.2, repeat: Infinity, repeatDelay: 7.2 }}
+              aria-hidden="true"
             >
-              Rishabh Arora – Cyber Security Enthusiast
+              {title}
             </motion.span>
           </span>
         </motion.h1>
 
         {/* Subtitle */}
         <motion.p
-          className="text-lg md:text-xl mb-12 max-w-2xl mx-auto text-[#ffffff]"
+          className="text-lg md:text-xl mb-6 max-w-2xl mx-auto text-[#ffffff]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 1 }}
@@ -176,12 +201,40 @@ const HeroSection = ({
           {subtitle}
         </motion.p>
 
+        {/* Independent CTA buttons (NOT inside the terminal) */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+          <a
+            href="./Rishabh_Arora.pdf"
+            download
+            className="btn btn-primary flex items-center gap-3 px-5 py-3 rounded-md border border-red-500/50 bg-red-600 text-white shadow-sm"
+            aria-label="Download CV"
+            onClick={() => {
+              /* ensure accessible focus change if needed */
+            }}
+          >
+            <Download className="h-5 w-5" aria-hidden="true" />
+            <span className="font-medium">Download CV</span>
+          </a>
+
+          <button
+            type="button"
+            onClick={scrollToContactTerminal}
+            className="btn btn-outline flex items-center gap-3 px-5 py-3 rounded-md border border-red-500/50 text-white hover:bg-white/5"
+            aria-label="Open contact form"
+          >
+            <span className="font-medium">Contact Form</span>
+            <ArrowRight className="h-5 w-5" aria-hidden="true" />
+          </button>
+        </div>
+
         {/* Terminal section */}
         <motion.div
           className="bg-black/80 border border-red-500/30 p-6 rounded-md w-full max-w-lg mx-auto font-mono text-left text-white/90 mb-12"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
+          role="region"
+          aria-label="Intro terminal"
         >
           <div className="flex items-center mb-4 border-b border-red-500/20 pb-2">
             <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
@@ -192,23 +245,43 @@ const HeroSection = ({
           <div className="text-green-500 mb-2">
             $ <span className="text-white/80">run intro.sh</span>
           </div>
-          <div className="min-h-[100px] flex">
-            {typedText.map((line, index) => (
-              <div key={index} className="mb-2">
-                {line}
-                {index === currentLineIndex &&
-                  currentCharIndex < introText[currentLineIndex]?.length && (
-                    <span className="inline-block w-2 h-4 bg-white/80 ml-0.5 animate-pulse"></span>
-                  )}
-              </div>
-            ))}
+          <div className="min-h-[100px] flex flex-col">
+          {typedText.map((line, index) => (
+            <div key={index} className="mb-2">
+              <span className="text-green-400">{line}</span>
+              {index === currentLineIndex &&
+                currentCharIndex < introText[currentLineIndex]?.length && (
+                  <span className="inline-block w-2 h-4 bg-green-400 ml-0.5 animate-pulse"></span>
+                )}
+            </div>
+          ))}
+
             {currentLineIndex >= introText.length && (
               <div className="text-green-500 mt-2">
-                <span className="inline-block w-2 h-4 bg-white/80 ml-0.5 animate-pulse"></span>
+                ${" "}
+                <span className="inline-block w-2 h-4 bg-white/80 ml-0.5 animate-pulse" />
               </div>
             )}
           </div>
         </motion.div>
+      </motion.div>
+
+      {/* Scroll down action button */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+      >
+        <button
+          className="rounded-full border border-red-500/50 p-3 bg-transparent text-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/30"
+          onClick={() =>
+            window.scrollTo({ top: window.innerHeight, behavior: "smooth" })
+          }
+          aria-label="Scroll down"
+        >
+          <ArrowDownIcon className="h-4 w-4" />
+        </button>
       </motion.div>
 
       {/* CSS for animations + responsive overrides (mobile-first) */}
@@ -275,6 +348,10 @@ const HeroSection = ({
             min-height: 80px !important;
           }
           #home .p-6 { padding: 0.75rem !important; }
+          #home .flex.flex-col.sm\\:flex-row {
+            flex-direction: column !important;
+            align-items: stretch !important;
+          }
         }
 
         /* Avoid horizontal scroll from absolute children — keep inside viewport */
@@ -331,7 +408,6 @@ const HeroSection = ({
 
         /* Prevent side-scroll caused by any long monospaced strings */
         #home .font-mono { word-break: break-word; overflow-wrap: anywhere; -webkit-font-smoothing: antialiased; }
-
       `}</style>
     </div>
   );

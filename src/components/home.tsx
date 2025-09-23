@@ -258,6 +258,7 @@ const Home: React.FC = () => {
         id="skills"
         className="my-20 mx-4 md:mx-8 lg:mx-16 bg-black"
         headingId="skills-heading"
+
         // replayOnView={true}
         // replayOnHover={true}
         // fadeOutOnScroll={true}
@@ -370,7 +371,7 @@ const Home: React.FC = () => {
 
       {/* Footer */}
       <FadeIn direction="up" distance={18} delay={0.04} once={false}>
-        <footer className="my-10 mx-4 border-t border-red-600/30 relative overflow-hidden">
+        <footer className="my-10 mx-4 relative overflow-hidden">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
             <motion.p
               className="font-mono text-red-600 text-sm mb-4 md:mb-0"
