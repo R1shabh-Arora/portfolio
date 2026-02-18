@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
   const isDev = mode === "development" || process.env.NODE_ENV === "development";
 
   return {
-    base: isDev ? "/" : process.env.VITE_BASE_PATH || "/portfolio/",
+    base: isDev ? "/" : process.env.VITE_BASE_PATH || "/",
     optimizeDeps: {
       entries: ["src/main.tsx", "src/tempobook/**/*"],
     },
