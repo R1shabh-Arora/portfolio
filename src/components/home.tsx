@@ -13,6 +13,7 @@ import Header from "./header";
 import FadeIn from "./FadeIn";
 import BlogFeed from "./BlogFeed";
 import Community from "./Community";
+import HackTheBox from "./HackTheBox";
 
 const Home: React.FC = () => {
   return (
@@ -350,6 +351,11 @@ const Home: React.FC = () => {
           </FadeIn>
         </div>
       </AnimatedSection>
+
+      {/* Hack The Box progression */}
+      <FadeIn direction="up" distance={24} delay={0.04} once={false}>
+        <HackTheBox />
+      </FadeIn>
 
       {/* Blog feed (live from blogs.rishabh.uk) */}
       <FadeIn direction="up" distance={24} delay={0.04} once={false}>
