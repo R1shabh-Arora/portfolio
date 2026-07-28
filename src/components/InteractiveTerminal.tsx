@@ -1,5 +1,6 @@
 // src/components/InteractiveTerminal.tsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { BLOG_URL, HTB_PROFILE_URL as HTB_URL } from "@/lib/profiles";
 
 type Line = { kind: "input" | "output" | "system"; text: string };
 
@@ -7,10 +8,6 @@ interface InteractiveTerminalProps {
   /** Lines typed out automatically before the prompt becomes interactive. */
   introText: string[];
 }
-
-const BLOG_URL = "https://blogs.rishabh.uk/";
-const HTB_URL =
-  "https://profile.hackthebox.com/profile/019e7e93-f3b7-72d9-a26c-2eff19879e39";
 
 /** Scroll a section into view and return the confirmation line. */
 function goTo(id: string, label: string): string {

@@ -1,6 +1,7 @@
 // src/components/AboutMe.tsx
 import React from "react";
 import RishabhImg from "./Rishabh.webp";
+import { HTB_PROFILE_URL, THM_PROFILE_URL } from "@/lib/profiles";
 
 export default function AboutMe() {
   return (
@@ -100,7 +101,7 @@ export default function AboutMe() {
             </a>
 
             <a
-              href="https://tryhackme.com/p/Failed0"
+              href={THM_PROFILE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-4 py-2 rounded border border-gray-700 text-gray-300 hover:border-red-500 hover:text-red-400 transition"
@@ -108,7 +109,7 @@ export default function AboutMe() {
               TryHackMe Profile
             </a>
             <a
-              href="https://app.hackthebox.com/profile/2508399"
+              href={HTB_PROFILE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-4 py-2 rounded border border-gray-700 text-gray-300 hover:border-red-500 hover:text-red-400 transition"

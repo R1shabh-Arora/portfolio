@@ -1,9 +1,8 @@
 // src/components/BlogFeed.tsx
 import React, { useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { BLOG_URL, BLOG_FEED_URL as FEED_URL } from "@/lib/profiles";
 
-const FEED_URL = "https://blogs.rishabh.uk/feed.xml";
-const BLOG_URL = "https://blogs.rishabh.uk/";
 const MAX_POSTS = 3;
 
 type Post = {

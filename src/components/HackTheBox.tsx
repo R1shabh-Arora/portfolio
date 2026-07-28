@@ -1,12 +1,9 @@
 // src/components/HackTheBox.tsx
 import React from "react";
 import { Flame, ExternalLink } from "lucide-react";
+import { HTB_PROFILE_URL } from "@/lib/profiles";
 
-/**
- * Public profile link. HTB public profiles are keyed by numeric user ID
- * (app.hackthebox.com/profile/<id>), not by handle.
- */
-const PROFILE_URL: string | null = "https://app.hackthebox.com/profile/2508399";
+const PROFILE_URL: string | null = HTB_PROFILE_URL;
 const HANDLE = "MuscularPigeon";
 
 /**
