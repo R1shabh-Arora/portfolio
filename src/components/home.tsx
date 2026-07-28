@@ -28,6 +28,9 @@ const Home: React.FC = () => {
       {/* Scanline overlay effect */}
       <div className="fixed inset-0 pointer-events-none z-10 bg-scanline opacity-10" />
 
+      {/* Main landmark — target of the header's "Skip to content" link */}
+      <main id="main" tabIndex={-1}>
+
       {/* Hero Section */}
       <FadeIn direction="up" distance={28} delay={0} once={false}>
         <HeroSection
@@ -48,6 +51,7 @@ const Home: React.FC = () => {
             <h2
               className="text-2xl md:text-3xl font-mono text-red-600 mb-8 glitch-text"
               id="experience-heading"
+              data-text="Work Experience"
             >
               <span className="relative">Work Experience</span>
             </h2>
@@ -74,6 +78,7 @@ const Home: React.FC = () => {
             <h2
               className="text-2xl md:text-3xl font-mono text-red-600 mb-12 glitch-text"
               id="projects-heading"
+              data-text="Projects_"
             >
               <span className="relative">Projects_</span>
             </h2>
@@ -292,7 +297,7 @@ const Home: React.FC = () => {
         className="my-20 mx-4 md:mx-8 lg:mx-16 bg-black/90"
         heading={
           <FadeIn direction="left" distance={28} delay={0.04} once={false}>
-            <h2 className="text-2xl md:text-3xl font-mono text-red-600 mb-12 glitch-text" id="education-heading">
+            <h2 className="text-2xl md:text-3xl font-mono text-red-600 mb-12 glitch-text" id="education-heading" data-text="Education_">
               <span className="relative">Education_</span>
             </h2>
           </FadeIn>
@@ -315,7 +320,7 @@ const Home: React.FC = () => {
         className="my-20 mx-4 md:mx-8 lg:mx-16 bg-black/90"
         heading={
           <FadeIn direction="left" distance={28} delay={0.04} once={false}>
-            <h2 className="text-2xl md:text-3xl font-mono text-red-600 mb-6 glitch-text" id="strategy-heading">
+            <h2 className="text-2xl md:text-3xl font-mono text-red-600 mb-6 glitch-text" id="strategy-heading" data-text="Security_Philosophy">
               <span className="relative">Security_Philosophy</span>
             </h2>
           </FadeIn>
@@ -342,6 +347,8 @@ const Home: React.FC = () => {
                     src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80"
                     alt="Cybersecurity Network"
                     className="w-full h-auto filter contrast-125 brightness-75 hover:brightness-100 transition-all duration-700"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-40" />
                   <div className="absolute inset-0 bg-red-600/10" />
@@ -378,7 +385,7 @@ const Home: React.FC = () => {
         className="my-20 mx-4 md:mx-8 lg:mx-16"
         heading={
           <FadeIn direction="left" distance={28} delay={0.04} once={false}>
-            <h2 className="text-2xl md:text-3xl font-mono text-red-600 mb-12 glitch-text" id="contact-heading">
+            <h2 className="text-2xl md:text-3xl font-mono text-red-600 mb-12 glitch-text" id="contact-heading" data-text="Contact_">
               <span className="relative">Contact_</span>
             </h2>
           </FadeIn>
@@ -399,6 +406,8 @@ const Home: React.FC = () => {
       <FadeIn direction="up" distance={20} delay={0.04} once={false}>
         <ContactInfo />
       </FadeIn>
+
+      </main>
 
       {/* Footer */}
       <FadeIn direction="up" distance={18} delay={0.04} once={false}>

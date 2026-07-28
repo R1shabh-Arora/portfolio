@@ -70,6 +70,7 @@ export default function Community() {
         <h2
           id="community-heading"
           className="text-2xl md:text-3xl font-mono text-red-600 mb-2 glitch-text"
+          data-text="Community_"
         >
           <span className="relative">Community_</span>
         </h2>

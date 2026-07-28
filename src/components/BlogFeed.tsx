@@ -107,6 +107,7 @@ export default function BlogFeed() {
         <h2
           id="blog-heading"
           className="text-2xl md:text-3xl font-mono text-red-600 mb-2 glitch-text"
+          data-text="Latest_Writeups"
         >
           <span className="relative">Latest_Writeups</span>
         </h2>

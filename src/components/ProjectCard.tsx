@@ -117,7 +117,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
           {/* Image */}
           <div className="relative w-full h-40 overflow-hidden">
-            <img src={image} alt={title} className="w-full h-full object-cover" />
+            <img
+              src={image}
+              alt={title}
+              className="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
             <div className="absolute inset-0 bg-scanline opacity-20 pointer-events-none" />
             <motion.div
               className="absolute inset-0 bg-red-600/10 opacity-0 mix-blend-overlay"
@@ -235,6 +241,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                         src={image}
                         alt={`${title} screenshot`}
                         className="w-full h-auto max-h-[60vh] object-contain rounded-md"
+                        loading="lazy"
+                        decoding="async"
                       />
 
                     <div className="absolute inset-0 bg-scanline opacity-10 pointer-events-none" />

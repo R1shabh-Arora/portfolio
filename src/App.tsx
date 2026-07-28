@@ -1,19 +1,11 @@
-import { Suspense } from "react";
-import { useRoutes, Routes, Route } from "react-router-dom";
 import Home from "./components/home";
-// import routes from "tempo-routes";
 
+/**
+ * Single-page portfolio — every section lives on Home and is reached by
+ * in-page anchor, so there is no router here on purpose.
+ */
 function App() {
-  return (
-    <Suspense fallback={<p>Loading...</p>}>
-      <>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-        {/* {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)} */}
-      </>
-    </Suspense>
-  );
+  return <Home />;
 }
 
 export default App;

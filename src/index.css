@@ -84,13 +84,22 @@
    ------------------------- */
 html {
   scroll-behavior: smooth;
+  /* The site is black end-to-end; this stops white bleed on iOS rubber-band
+     scroll and during first paint, and matches <meta name="theme-color">. */
+  background-color: #000;
 }
 
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: hsl(var(--background));
+  background-color: #000;
   color: hsl(var(--foreground));
+}
+
+/* The header is fixed at h-14 (3.5rem). Without this, every in-page anchor
+   scrolls the target heading up underneath it. */
+[id] {
+  scroll-margin-top: 4.5rem;
 }
 
 /* responsive images */

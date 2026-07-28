@@ -4,10 +4,9 @@ import { Flame, ExternalLink } from "lucide-react";
 
 /**
  * Public profile link. HTB public profiles are keyed by numeric user ID
- * (app.hackthebox.com/profile/<id>), not by handle — set this to the real ID
- * before relying on it. Left null so no broken link ever ships.
+ * (app.hackthebox.com/profile/<id>), not by handle.
  */
-const PROFILE_URL: string | null = null;
+const PROFILE_URL: string | null = "https://app.hackthebox.com/profile/2508399";
 const HANDLE = "MuscularPigeon";
 
 /**
@@ -62,6 +61,7 @@ export default function HackTheBox() {
         <h2
           id="htb-heading"
           className="text-2xl md:text-3xl font-mono text-red-600 mb-2 glitch-text"
+          data-text="Hack_The_Box"
         >
           <span className="relative">Hack_The_Box</span>
         </h2>

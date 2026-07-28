@@ -11,11 +11,11 @@ interface HeroSectionProps {
 }
 
 const HeroSection = ({
-  title = "Rishabh Arora – Graphic Designer",
-  subtitle = "Visual storytelling through design, inspired by the digital underground.",
+  title = "Rishabh Arora – Cyber Security Enthusiast",
+  subtitle = "I focus on exposing, securing, and holding malicious actors to account.",
   introText = [
     "Hello, friend.",
-    "I create visual identities, motion graphics, and digital experiences.",
+    "I break systems to understand how they hold — then help make them hold better.",
     "This is my portfolio.",
   ],
 }: HeroSectionProps) => {

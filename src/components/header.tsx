@@ -13,7 +13,7 @@ const NAV: NavItem[] = [
   { id: "community", label: "Community" },
   { id: "about", label: "About" },
   { id: "contact", label: "Contact" },
-  { id: "blog", label: "Blog", href: "https://blogs.rishabh.uk/", external: true },
+  { id: "blog", label: "Blog" },
 ];
 
 export default function Header() {

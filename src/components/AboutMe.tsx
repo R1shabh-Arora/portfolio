@@ -1,6 +1,6 @@
 // src/components/AboutMe.tsx
 import React from "react";
-import RishabhImg from "./Rishabh.jpg";
+import RishabhImg from "./Rishabh.webp";
 
 export default function AboutMe() {
   return (
