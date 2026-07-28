@@ -17,6 +17,31 @@ interface ExperienceItem {
  */
 const experiences: ExperienceItem[] = [
   {
+    id: 'o2-2025',
+    role: 'Technical Specialist (Tier 2)',
+    org: 'O2 Business',
+    date: 'Oct 2025 – Present',
+    type: 'Bournemouth',
+    bullets: [
+      "Triage and resolve escalated incidents across voice, data, and network layers, performing root-cause analysis on connectivity, authentication, and configuration faults.",
+      "Investigate network anomalies using packet captures, log analysis, and diagnostic tools, skills that translate directly to SOC and incident response workflows.",
+      "Configure and harden client network systems including firewall rules, VPN tunnels, and VoIP security settings, applying defence-in-depth principles.",
+      "Document technical findings and remediation steps to support knowledge sharing and repeatable incident response.",
+    ],
+  },
+  {
+    id: 'soton-supervisor-2025',
+    role: 'Project Supervisor',
+    org: 'University of Southampton',
+    date: 'Jan – May 2025',
+    type: 'Leadership & Mentoring',
+    bullets: [
+      "Supervised second-year student teams through an Agile software engineering project, guiding them across full development cycles.",
+      "Provided weekly feedback and assessed deliverables to maintain consistent progress and quality.",
+      "Represented the customer in stand-ups and sprint planning, helping teams align with user needs and project goals.",
+    ],
+  },
+  {
     id: 'sucss-2023',
     role: 'Webmaster',
     org: 'Southampton University Cyber Security Society (SUCSS)',
@@ -30,26 +55,37 @@ const experiences: ExperienceItem[] = [
   },
   {
     id: 'isolutions-2023',
-    role: 'Project Assistant',
-    org: 'iSolutions',
+    role: 'Analyst',
+    org: 'iSolutions, University of Southampton',
     date: 'Aug – Sep 2023',
     type: 'IT Support & Operations',
     bullets: [
-      "Migrated office comms to Microsoft Teams and trained staff.",
-      "Maintained project database, ensuring data accuracy and accessibility.",
+      "Migrated office comms to Microsoft Teams and trained staff through the transition.",
+      "Maintained the project database, ensuring data accuracy and accessibility.",
       "Supported ticket resolution and coordinated tasks across IT teams.",
     ],
   },
   {
-    id: 'activpoints-2023',
-    role: 'Intern',
-    org: 'ActivPoints',
-    date: 'Apr – Jun 2023',
-    type: 'Cloud & DevOps',
+    id: 'soton-ambassador-2023',
+    role: 'Student Ambassador',
+    org: 'University of Southampton',
+    date: 'Jun 2023 – Oct 2025',
+    type: 'Outreach & Public Speaking',
     bullets: [
-      "Deployed and stabilised React apps across AWS EC2 and Heroku.",
-      "Resolved deployment/authentication issues and hardened servers.",
-      "Integrated Postgres DB, documented deployment steps, and flagged credential risks.",
+      "Delivered talks and answered live questions, explaining cybersecurity concepts to non-technical audiences.",
+      "Engaged prospective students and shared experience to support informed decisions about their studies.",
+    ],
+  },
+  {
+    id: 'activpoints-2023',
+    role: 'Developer',
+    org: 'ActivPoints UK Limited',
+    date: 'Apr – Jun 2023',
+    type: 'Cloud & Web Development',
+    bullets: [
+      "Deployed and stabilised React applications across AWS EC2 and cPanel-managed infrastructure.",
+      "Resolved deployment and authentication issues, and hardened server configurations.",
+      "Built frontend features in React and JavaScript, and documented deployment steps for the team.",
     ],
   },
 ];

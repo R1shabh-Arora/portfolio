@@ -1,15 +1,18 @@
 // src/components/Header.tsx
 import React, { useEffect, useRef, useState } from "react";
 
-const NAV = [
+type NavItem = { id: string; label: string; href?: string; external?: boolean };
+
+const NAV: NavItem[] = [
   { id: "home", label: "Home" },
   { id: "experience", label: "Work Experience" },
   { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
   { id: "education", label: "Education" },
+  { id: "community", label: "Community" },
   { id: "about", label: "About" },
   { id: "contact", label: "Contact" },
-  { id: "contact-info", label: "Contact Info" }, // optional
+  { id: "blog", label: "Blog", href: "https://blogs.rishabh.uk/", external: true },
 ];
 
 export default function Header() {
@@ -33,10 +36,11 @@ export default function Header() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Build list of elements to observe (only those that exist)
-    const observedEls: Element[] = NAV.map((n) =>
-      document.getElementById(n.id),
-    ).filter(Boolean) as Element[];
+    // Build list of elements to observe (in-page sections only, and only those
+    // that exist). External links have no section to track.
+    const observedEls: Element[] = NAV.filter((n) => !n.external)
+      .map((n) => document.getElementById(n.id))
+      .filter(Boolean) as Element[];
 
     if (observedEls.length === 0) {
       // fallback: listen to hashchange only
@@ -180,11 +184,13 @@ export default function Header() {
             className="hidden md:flex items-center gap-6 text-sm"
           >
             {NAV.map((item) => {
-              const isActive = active === item.id;
+              const isActive = !item.external && active === item.id;
               return (
                 <a
                   key={item.id}
-                  href={`#${item.id}`}
+                  href={item.external ? item.href : `#${item.id}`}
+                  target={item.external ? "_blank" : undefined}
+                  rel={item.external ? "noopener noreferrer" : undefined}
                   className={`px-3 py-1 rounded transition focus:outline-none focus:ring-2 focus:ring-red-500 ${
                     isActive
                       ? "bg-red-600/20 text-red-400 border border-red-600/40"
@@ -255,11 +261,13 @@ export default function Header() {
             >
               <div className="bg-black/95 border border-gray-700 rounded-md p-2">
                 {NAV.map((item) => {
-                  const isActive = active === item.id;
+                  const isActive = !item.external && active === item.id;
                   return (
                     <a
                       key={item.id}
-                      href={`#${item.id}`}
+                      href={item.external ? item.href : `#${item.id}`}
+                      target={item.external ? "_blank" : undefined}
+                      rel={item.external ? "noopener noreferrer" : undefined}
                       onClick={() => setOpen(false)}
                       className={`block px-3 py-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-red-500 ${
                         isActive ? "bg-red-600/20 text-red-400" : "text-gray-200 hover:bg-white/5"

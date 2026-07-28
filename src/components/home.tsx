@@ -11,6 +11,8 @@ import AboutMe from "./AboutMe";
 import ContactInfo from "./ContactInfo";
 import Header from "./header";
 import FadeIn from "./FadeIn";
+import BlogFeed from "./BlogFeed";
+import Community from "./Community";
 
 const Home: React.FC = () => {
   return (
@@ -107,6 +109,19 @@ const Home: React.FC = () => {
                     },
                     { label: "Group Report (PDF)", url: "/GDP_Group_Report.pdf" },
                   ],
+                },
+                {
+                  id: "12",
+                  title: "SOC_Home_Lab",
+                  description: "Detection engineering lab: Splunk SIEM, Sysmon telemetry, and Kali-driven adversary simulation.",
+                  longDescription:
+                    "Built a home SOC environment to develop and validate detection engineering skills. Deployed Splunk as the SIEM with a Universal Forwarder ingesting Sysmon-instrumented Windows endpoint telemetry. Used a Kali Linux attack node to simulate adversary techniques (credential access, lateral movement, persistence) mapped to MITRE ATT&CK. Wrote SPL detection rules, tuned alert logic to reduce false positives, and documented coverage gaps with remediation notes. The lab replicates real SOC workflows: ingest, parse, correlate, detect, investigate. Used as a continuous test bed for new techniques and detection research.",
+                  image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=800&q=80",
+                  tags: ["Splunk", "Sysmon", "Kali Linux", "SIEM", "MITRE ATT&CK", "Detection Engineering", "SPL", "Threat Hunting"],
+                  role: "Detection Engineer",
+                  date: "2025 – Present",
+                  ownership: "Individual",
+                  links: [],
                 },
                 {
                   id: "2",
@@ -336,6 +351,16 @@ const Home: React.FC = () => {
         </div>
       </AnimatedSection>
 
+      {/* Blog feed (live from blogs.rishabh.uk) */}
+      <FadeIn direction="up" distance={24} delay={0.04} once={false}>
+        <BlogFeed />
+      </FadeIn>
+
+      {/* Community / conference circuit */}
+      <FadeIn direction="up" distance={24} delay={0.04} once={false}>
+        <Community />
+      </FadeIn>
+
       {/* About Me Section */}
       <FadeIn direction="up" distance={24} delay={0.04} once={false}>
         <AboutMe />
@@ -414,6 +439,10 @@ const Home: React.FC = () => {
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm-1 4v12l8-6-8-6z" />
                 </svg>
+              </a>
+
+              <a href="https://blogs.rishabh.uk/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-red-600 transition-colors duration-300 font-mono text-xs tracking-wide" aria-label="Blog">
+                blog
               </a>
             </div>
           </div>

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { ArrowDownIcon, Download, ArrowRight } from "lucide-react";
 import Typewriter from "./Typewriter";
+import InteractiveTerminal from "./InteractiveTerminal";
 
 interface HeroSectionProps {
   title?: string;
@@ -18,43 +19,6 @@ const HeroSection = ({
     "This is my portfolio.",
   ],
 }: HeroSectionProps) => {
-  const [typedText, setTypedText] = useState<string[]>([]);
-  const [currentLineIndex, setCurrentLineIndex] = useState(0);
-  const [currentCharIndex, setCurrentCharIndex] = useState(0);
-
-  // Typewriter effect
-  useEffect(() => {
-    if (currentLineIndex >= introText.length) return;
-
-    const currentLine = introText[currentLineIndex];
-
-    if (currentCharIndex < currentLine.length) {
-      const timer = setTimeout(() => {
-        setTypedText((prev) => {
-          const newTypedText = [...prev];
-          if (!newTypedText[currentLineIndex]) {
-            newTypedText[currentLineIndex] = "";
-          }
-          newTypedText[currentLineIndex] = currentLine.substring(
-            0,
-            currentCharIndex + 1,
-          );
-          return newTypedText;
-        });
-        setCurrentCharIndex(currentCharIndex + 1);
-      }, 50 + Math.random() * 50);
-
-      return () => clearTimeout(timer);
-    } else {
-      const timer = setTimeout(() => {
-        setCurrentLineIndex(currentLineIndex + 1);
-        setCurrentCharIndex(0);
-      }, 500);
-
-      return () => clearTimeout(timer);
-    }
-  }, [currentLineIndex, currentCharIndex, introText]);
-
   // Glitch animation variants
   const glitchVariants = {
     hidden: { opacity: 0 },
@@ -191,6 +155,41 @@ const HeroSection = ({
           </span>
         </motion.h1>
 
+        {/* Availability badge */}
+        <motion.div
+          className="flex justify-center mb-4"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+        >
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 rounded-full border border-green-500/40 bg-green-500/10 px-4 py-1.5 font-mono text-xs text-green-400 hover:border-green-400 hover:bg-green-500/20 transition focus:outline-none focus:ring-2 focus:ring-green-500"
+          >
+            <span className="relative flex h-2 w-2" aria-hidden>
+              <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75 animate-ping" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+            </span>
+            Available for opportunities
+          </a>
+        </motion.div>
+
+        {/* Role / location / clearance metadata */}
+        <motion.div
+          className="flex flex-wrap justify-center gap-x-3 gap-y-1 mb-4 font-mono text-xs text-gray-400"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+        >
+          <span className="text-red-400">Technical Specialist</span>
+          <span className="text-gray-600">·</span>
+          <span>O2 Business</span>
+          <span className="text-gray-600">·</span>
+          <span>Bournemouth, UK</span>
+          <span className="text-gray-600">·</span>
+          <span className="text-green-400/80">SC Clearance Eligible</span>
+        </motion.div>
+
         {/* Subtitle */}
         <motion.p
           className="text-lg md:text-xl mb-6 max-w-2xl mx-auto text-[#ffffff]"
@@ -227,42 +226,13 @@ const HeroSection = ({
           </button>
         </div>
 
-        {/* Terminal section */}
+        {/* Interactive terminal */}
         <motion.div
-          className="bg-black/80 border border-red-500/30 p-6 rounded-md w-full max-w-lg mx-auto font-mono text-left text-white/90 mb-12"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
-          role="region"
-          aria-label="Intro terminal"
         >
-          <div className="flex items-center mb-4 border-b border-red-500/20 pb-2">
-            <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
-            <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
-            <span className="text-xs text-white/50 ml-2">terminal</span>
-          </div>
-          <div className="text-green-500 mb-2">
-            $ <span className="text-white/80">run intro.sh</span>
-          </div>
-          <div className="min-h-[100px] flex flex-col">
-          {typedText.map((line, index) => (
-            <div key={index} className="mb-2">
-              <span className="text-green-400">{line}</span>
-              {index === currentLineIndex &&
-                currentCharIndex < introText[currentLineIndex]?.length && (
-                  <span className="inline-block w-2 h-4 bg-green-400 ml-0.5 animate-pulse"></span>
-                )}
-            </div>
-          ))}
-
-            {currentLineIndex >= introText.length && (
-              <div className="text-green-500 mt-2">
-                ${" "}
-                <span className="inline-block w-2 h-4 bg-white/80 ml-0.5 animate-pulse" />
-              </div>
-            )}
-          </div>
+          <InteractiveTerminal introText={introText} />
         </motion.div>
       </motion.div>
 

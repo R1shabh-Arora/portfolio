@@ -16,23 +16,35 @@ export default function AboutMe() {
             Who Am I?
           </h2>
 
+          {/* Role / location metadata */}
+          <div className="flex flex-wrap gap-x-3 gap-y-1 mb-5 font-mono text-xs text-gray-400">
+            <span className="text-red-500 font-semibold">Technical Specialist</span>
+            <span className="text-gray-600">·</span>
+            <span>O2 Business</span>
+            <span className="text-gray-600">·</span>
+            <span>Bournemouth, UK</span>
+            <span className="text-gray-600">·</span>
+            <span className="text-green-500/80">SC Clearance Eligible</span>
+          </div>
+
           <div className="space-y-4 leading-relaxed text-gray-300 font-sans">
             <p>
               I’m <span className="text-red-500 font-semibold">Rishabh Arora</span>,
               an MEng Computer Science graduate specialising in Cyber Security
-              from the University of Southampton (2:1). I build resilient,
-              hacker-aware systems that protect people and data — from tamper-
-              resistant CCTV prototypes to SVM-based intrusion detection and
-              hardened cloud deployments.
+              from the University of Southampton (2:1). Currently a Technical Specialist
+              at O2 Business, I build resilient, hacker-aware systems that protect people
+              and data — from tamper-resistant CCTV prototypes to SVM-based intrusion
+              detection and hardened cloud deployments.
             </p>
 
             <p>
               I combine deep technical practice with practical delivery: I’ve
               led society workshops, maintained production VMs with 100% uptime,
               and shipped security-focused projects used for research and
-              operational testing. I rank in the <strong>Top 8%</strong> (previously Top 3%) on
-              TryHackMe with 60+ labs — a concrete signal of sustained,
-              offensive-and-defensive skill development.
+              operational testing. I rank in the <strong>Top 3%</strong> on
+              TryHackMe across <strong>150+ labs</strong> covering web exploitation, Active
+              Directory, privilege escalation, and network pentesting, and I’m working
+              the CPTS path on Hack The Box alongside it.
             </p>
           </div>
 
@@ -58,6 +70,9 @@ export default function AboutMe() {
               <strong>Leadership:</strong> Webmaster — Southampton Cyber Security
               Society: redesigned the site, ran workshops, and improved
               engagement & awareness.
+            </li>
+            <li>
+              <strong>Community:</strong> Active in the UK infosec conference circuit: BSides events, SteelCon, and Infosecurity Europe.
             </li>
           </ul>
 
