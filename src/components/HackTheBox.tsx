@@ -10,20 +10,21 @@ const HANDLE = "MuscularPigeon";
  * HTB progression, synced manually from the profile page.
  *
  * HTB has no public read API for profile stats, so these are hand-updated.
+ * Last checked: 2026-09-22.
  * Mechanics (see help.hackthebox.com "Hack The Box XP System"):
  *   - Rank advances every 15 levels, through 3 Grades (I -> III) per rank.
  *   - XP to next level scales exponentially; there is no level cap.
  *   - A weekly streak increments on >= 200 XP in a Mon 00:00 - Sun 23:59 UTC week.
  */
 const stats = {
-  level: 34,
-  xpCurrent: 308,
-  xpNext: 790,
+  level: 42,
+  xpCurrent: 703,
+  xpNext: 1024,
   rank: "Skilled",
-  grade: 1,
+  grade: 3,
   gradesPerRank: 3,
-  streakWeeks: 7,
-  streakBest: 7,
+  streakWeeks: 14,
+  streakBest: 14,
   weeklyXp: 200,
   weeklyTarget: 200,
 };
