@@ -9,9 +9,8 @@ type CertItem = {
 
 const defaultCerts: CertItem[] = [
   { id: "cert-cc", name: "Certified in Cybersecurity (CC)", issuer: "ISC²" },
-  { id: "cert-27001", name: "ISO/IEC 27001:2022 Lead Implementer", issuer: "ISO" },
   { id: "cert-jpt", name: "Jr Penetration Tester", issuer: "TryHackMe" },
-  { id: "cert-sec+", name: "CompTIA Security+", issuer: "CompTIA", status: "in-progress" },
+  { id: "cert-sec+", name: "CompTIA Security+", issuer: "CompTIA" },
   { id: "cert-cpts", name: "Certified Penetration Testing Specialist (CPTS)", issuer: "HTB Academy", status: "in-progress" },
   { id: "cert-oscp", name: "OSCP", issuer: "OffSec", status: "planned" },
 ];

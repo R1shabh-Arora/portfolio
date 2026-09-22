@@ -36,7 +36,7 @@ const COMMANDS: Record<string, () => string | string[]> = {
     "",
     "MEng Computer Science with Cyber Security, University of Southampton.",
     "Technical Specialist (Tier 2) at O2 Business, Bournemouth.",
-    "Top 3% on TryHackMe across 150+ labs. Working the CPTS path on Hack The Box.",
+    "Working the CPTS path on Hack The Box.",
     "Looking for junior pen test, red team, or SOC roles in the UK.",
   ],
   skills: () => [
@@ -48,9 +48,8 @@ const COMMANDS: Record<string, () => string | string[]> = {
   ],
   certs: () => [
     "[earned]       ISC2 Certified in Cybersecurity (CC)",
-    "[earned]       ISO/IEC 27001:2022 Lead Implementer",
     "[earned]       TryHackMe Jr Penetration Tester",
-    "[in progress]  CompTIA Security+",
+    "[earned]       CompTIA Security+",
     "[in progress]  HTB Academy CPTS",
     "[planned]      OSCP",
   ],

@@ -42,10 +42,10 @@ export default function AboutMe() {
               I combine deep technical practice with practical delivery: I’ve
               led society workshops, maintained production VMs with 100% uptime,
               and shipped security-focused projects used for research and
-              operational testing. I rank in the <strong>Top 3%</strong> on
-              TryHackMe across <strong>150+ labs</strong> covering web exploitation, Active
-              Directory, privilege escalation, and network pentesting, and I’m working
-              the CPTS path on Hack The Box alongside it.
+              operational testing. I hold the TryHackMe Jr Penetration Tester
+              certification, covering web exploitation, Active Directory,
+              privilege escalation, and network pentesting, and I’m currently
+              working the CPTS path on Hack The Box.
             </p>
           </div>
 
